@@ -25,6 +25,9 @@ func _physics_process(delta: float) -> void:
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 		$Pivot.basis = Basis.looking_at(direction)
+		$AnimationPlayer.speed_scale = 4
+	else:
+		$AnimationPlayer.speed_scale = 1
 		
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
@@ -49,6 +52,7 @@ func _physics_process(delta: float) -> void:
 				target_velocity.y = bounce_impulse
 				break
 	
+	$Pivot.rotation.x = PI / 6 * velocity.y / jump_impulse
 
 
 func _on_mob_detector_body_entered(body: Node3D) -> void:
